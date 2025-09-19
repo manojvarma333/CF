@@ -98,24 +98,35 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex justify-center space-x-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex justify-center space-x-2 sm:space-x-4 md:space-x-6 overflow-x-auto py-2 hide-scrollbar">
             {[
               { id: 'home', label: 'Home' },
               { id: 'letter', label: 'Love Letter' },
-              { id: 'memories', label: 'Our Memories' },
+              { id: 'memories', label: 'Memories' },
               { id: 'timeline', label: 'Our Journey' }
             ].map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-gray-700 hover:text-rose-500 transition-colors duration-200 font-medium"
+                className={`px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-base font-medium whitespace-nowrap transition-colors ${
+                  currentSection === item.id ? 'text-rose-600 border-b-2 border-rose-600' : 'text-gray-700 hover:text-rose-500'
+                }`}
               >
                 {item.label}
               </button>
             ))}
           </div>
         </div>
+        <style jsx>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
       </nav>
 
       {/* Home Section */}
@@ -206,23 +217,23 @@ function App() {
       </section>
 
       {/* Memories Section */}
-      <section id="memories" className="py-20 px-4 bg-gradient-to-br from-white to-rose-50">
+      <section id="memories" className="py-12 sm:py-20 px-4 bg-gradient-to-br from-white to-rose-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center mb-16 text-gray-800" style={{ fontFamily: 'Dancing Script, cursive' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-8 sm:mb-16 text-gray-800" style={{ fontFamily: 'Dancing Script, cursive' }}>
             Our Beautiful Memories
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-2 sm:px-4">
             {memories.map((memory) => (
               <div
                 key={memory.id}
                 className="group cursor-pointer"
                 onClick={() => setSelectedImage(memory)}
               >
-                <div className="relative overflow-hidden rounded-2xl shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
+                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg transform transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-xl">
                   <img
                     src={memory.image}
                     alt="Memory"
-                    className="w-full h-auto object-cover rounded-2xl"
+                    className="w-full h-full max-h-64 sm:max-h-80 object-cover"
                   />
                 </div>
               </div>
@@ -232,26 +243,26 @@ function App() {
       </section>
 
       {/* Timeline Section */}
-      <section id="timeline" className="py-20 px-6">
+      <section id="timeline" className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center mb-16 text-gray-800" style={{ fontFamily: 'Dancing Script, cursive' }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-center mb-8 sm:mb-16 text-gray-800" style={{ fontFamily: 'Dancing Script, cursive' }}>
             Our Journey Together
           </h2>
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-rose-300 to-purple-300"></div>
+          <div className="relative pl-4 sm:pl-0">
+            <div className="absolute left-0 sm:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-rose-300 to-purple-300"></div>
             {timelineEvents.map((event, index) => (
-              <div key={index} className={`relative flex items-center mb-16 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-                <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                  <div className="bg-white p-6 rounded-2xl shadow-lg border border-rose-100">
+              <div key={index} className={`relative flex ${index % 2 === 0 ? 'justify-start sm:justify-start' : 'justify-start sm:justify-end'} mb-8 sm:mb-16`}>
+                <div className={`w-full sm:w-11/12 md:w-5/12 ${index % 2 === 0 ? 'sm:pr-8' : 'sm:pl-8'}`}>
+                  <div className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg border border-rose-50">
                     <div className="flex items-center gap-2 mb-2 text-rose-500">
-                      <event.icon className="w-5 h-5" />
-                      <span className="text-sm font-medium">{event.date}</span>
+                      <event.icon className="w-4 sm:w-5 h-4 sm:h-5" />
+                      {event.date && <span className="text-xs sm:text-sm font-medium">{event.date}</span>}
                     </div>
-                    <h3 className="text-xl font-medium text-gray-800 mb-2">{event.title}</h3>
-                    <p className="text-gray-600">{event.description}</p>
+                    <h3 className="text-lg sm:text-xl font-medium text-gray-800 mb-1 sm:mb-2">{event.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600">{event.description}</p>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-rose-400 rounded-full border-4 border-white shadow-md"></div>
+                <div className="absolute left-0 sm:left-1/2 transform -translate-x-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-rose-400 rounded-full border-4 border-white shadow-md"></div>
               </div>
             ))}
           </div>
