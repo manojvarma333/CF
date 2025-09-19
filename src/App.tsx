@@ -17,19 +17,19 @@ const compliments = [
 const memories = [
   {
     id: 1,
-    image: "/images/memory1.jpg",
+    image: "./images/memory1.jpg",
     caption: "Our first coffee date - I was so nervous!",
     date: "March 15, 2023"
   },
   {
     id: 2,
-    image: "/images/momory2.jpg",
+    image: "./images/momory2.jpg",
     caption: "That beautiful sunset we watched together",
     date: "June 22, 2023"
   },
   {
     id: 3,
-    image: "/images/momory3.jpg",
+    image: "./images/momory3.jpg",
     caption: "Our weekend getaway - pure happiness",
     date: "August 10, 2023"
   }
